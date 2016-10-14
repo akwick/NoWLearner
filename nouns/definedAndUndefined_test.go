@@ -6,11 +6,12 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestCheckDefinitePlural(t *testing.T) {
+func TestCheckDefinite(t *testing.T) {
+	// Test correct input
 	var nouns = []struct {
 		noun     string
 		gender   string
-		plural   string
+		definite string
 		expected bool
 	}{
 		{"brus", "m", "brusen", true},
@@ -28,8 +29,18 @@ func TestCheckDefinitePlural(t *testing.T) {
 	}
 
 	for _, td := range nouns {
-		eq := CheckDefinitePlural(td.noun, td.gender, td.plural)
-		assert.Equal(t, eq, td.expected)
+		eq, err := CheckDefinite(td.noun, td.gender, td.definite)
+		if assert.Nil(t, err) {
+			assert.Equal(t, eq, td.expected)
+		}
+	}
+
+	// Test incorrect input
+	eq, err := CheckDefinite("brus", "X", "")
+	t.Logf("err: %v", err)
+	if assert.NotNil(t, err) {
+		assert.Equal(t, invGender, err.Error())
+		assert.False(t, eq)
 	}
 }
 

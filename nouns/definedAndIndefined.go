@@ -2,14 +2,20 @@ package nouns
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 )
 
 var invGender = "invalid gender"
 
 // CheckDefinitePlural checks whether the plural of noun with gender is build correctly.
-func CheckDefinitePlural(noun string, gender string, plural string) bool {
-	return false
+func CheckDefinite(noun string, gender string, definite string) (bool, error) {
+	s, err := getDefinite(noun, gender)
+	fmt.Printf("s: %s | err: %v\n", s, err)
+	if err != nil {
+		return false, err
+	}
+	return definite == s, nil
 }
 
 // getDefinite return the definite of a singular word.
