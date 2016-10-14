@@ -8,6 +8,7 @@ import (
 
 // Examples: https://www.ntnu.edu/now/2/grammar#nouns
 func TestDefinedVariables(t *testing.T) {
+	// Test correct input
 	var nouns = []struct {
 		noun     string
 		gender   string
@@ -27,4 +28,10 @@ func TestDefinedVariables(t *testing.T) {
 			assert.Equal(t, td.expected, plrl)
 		}
 	}
+
+	// Test invalid gender
+	plrl, err := getDefinite("brus", "M")
+	assert.Equal(t, "", plrl)
+	assert.NotNil(t, err)
+	assert.Equal(t, err.Error(), invGender)
 }
