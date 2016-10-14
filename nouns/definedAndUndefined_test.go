@@ -24,7 +24,7 @@ func TestDefinedVariables(t *testing.T) {
 	for _, td := range nouns {
 		plrl, err := getDefinite(td.noun, td.gender)
 		if assert.Nil(t, err) {
-			assert.Equal(t, plrl, td.expected)
+			assert.Equal(t, td.expected, plrl)
 		}
 	}
 }
