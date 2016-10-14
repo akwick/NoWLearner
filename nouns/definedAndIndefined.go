@@ -7,6 +7,11 @@ import (
 
 var invGender = "invalid gender"
 
+// CheckDefinitePlural checks whether the plural of noun with gender is build correctly.
+func CheckDefinitePlural(noun string, gender string, plural string) bool {
+	return false
+}
+
 // getDefinite return the definite of a singular word.
 // If the gender string is invalid (m, f, n), then an error is returned.
 // More information about the grammar: https://www.ntnu.edu/now/2/grammar#nouns

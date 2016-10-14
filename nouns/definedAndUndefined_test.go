@@ -6,6 +6,33 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestCheckDefinitePlural(t *testing.T) {
+	var nouns = []struct {
+		noun     string
+		gender   string
+		plural   string
+		expected bool
+	}{
+		{"brus", "m", "brusen", true},
+		{"avis", "f", "avisa", true},
+		{"tog", "n", "toget", true},
+		{"pose", "m", "posen", true},
+		{"jente", "f", "jenta", true},
+		{"frimerke", "n", "frimerket", true},
+		{"brus", "m", "brusa", false},
+		{"avis", "f", "aviset", false},
+		{"tog", "n", "togen", false},
+		{"pose", "m", "posa", false},
+		{"jente", "f", "jentet", false},
+		{"frimerke", "n", "frimerken", false},
+	}
+
+	for _, td := range nouns {
+		eq := CheckDefinitePlural(td.noun, td.gender, td.plural)
+		assert.Equal(t, eq, td.expected)
+	}
+}
+
 // Examples: https://www.ntnu.edu/now/2/grammar#nouns
 func TestDefinedVariables(t *testing.T) {
 	// Test correct input
