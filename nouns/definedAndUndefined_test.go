@@ -29,15 +29,16 @@ func TestCheckDefinite(t *testing.T) {
 	}
 
 	for _, td := range nouns {
-		eq, err := CheckDefinite(td.noun, td.gender, td.definite)
+		n := NewNoun(td.noun, td.gender)
+		eq, err := n.CheckDefinite(td.definite)
 		if assert.Nil(t, err) {
 			assert.Equal(t, eq, td.expected)
 		}
 	}
 
 	// Test incorrect input
-	eq, err := CheckDefinite("brus", "X", "")
-	t.Logf("err: %v", err)
+	n := NewNoun("brus", "X")
+	eq, err := n.CheckDefinite("")
 	if assert.NotNil(t, err) {
 		assert.Equal(t, invGender, err.Error())
 		assert.False(t, eq)

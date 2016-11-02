@@ -2,16 +2,27 @@ package nouns
 
 import (
 	"errors"
-	"fmt"
 	"strings"
 )
+
+type Noun struct {
+	*noun
+}
+
+type noun struct {
+	defSig string
+	gender string
+}
+
+func NewNoun(defSig, gender string) Noun {
+	return Noun{&noun{defSig, gender}}
+}
 
 var invGender = "invalid gender"
 
 // CheckDefinitePlural checks whether the plural of noun with gender is build correctly.
-func CheckDefinite(noun string, gender string, definite string) (bool, error) {
-	s, err := getDefinite(noun, gender)
-	fmt.Printf("s: %s | err: %v\n", s, err)
+func (n Noun) CheckDefinite(definite string) (bool, error) {
+	s, err := getDefinite(n.defSig, n.gender)
 	if err != nil {
 		return false, err
 	}
